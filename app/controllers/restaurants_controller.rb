@@ -10,7 +10,11 @@ class RestaurantsController < ApplicationController
 
   def create
     @restaurant = Restaurant.create(restaurant_params)
-    redirect_to '/restaurants'
+    if @restaurant.save
+      redirect_to restaurants_path 
+    else
+      render 'new'
+    end
   end
 
 # define which params we are going to allow us to pass to controller
