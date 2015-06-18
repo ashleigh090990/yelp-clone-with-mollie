@@ -13,11 +13,13 @@ Rails.application.routes.draw do
   get 'restaurants' => 'restaurants#index'
 
   resources :restaurants do
-    resources :reviews
+    resources :reviews, shallow: true do
+      resources :endorsements
+    end
 
-  devise_scope :user do
-    get 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
-  end
+    devise_scope :user do
+      get 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
+    end
   end
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase
